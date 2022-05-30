@@ -10,6 +10,12 @@ NAME blueprint
 128,159,255
 255,255,255
 
+PAL 1
+NAME gravelpit
+0,0,0
+238,230,187
+255,255,255
+
 ROOM 0
 a,a,a,a,a,a,a,a,a,a,a,0,a,a,a,a
 a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
@@ -30,7 +36,13 @@ a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a
 NAME bedroom
 ITM 1 11,5
 ITM 2 4,10
-PAL 0
+ITM 3 10,11
+ITM 4 12,10
+ITM 5 12,12
+ITM 5 9,8
+ITM 5 6,12
+ITM 6 2,12
+PAL 1
 
 TIL a
 11111111
@@ -56,7 +68,7 @@ SPR A
 POS 0 4,4
 
 SPR a
-00111000
+01111000
 00111000
 00010000
 00111010
@@ -65,7 +77,7 @@ SPR a
 00101000
 00101000
 >
-00111000
+00111100
 00111000
 00010000
 00111100
@@ -101,10 +113,58 @@ ITM 2
 NAME trousers
 DLG 3
 
+ITM 3
+00000000
+00010000
+00011000
+00111100
+00100100
+00111100
+00111100
+00111100
+NAME cigarettes
+DLG 5
+
+ITM 4
+00000000
+00011100
+00001100
+00011100
+00011100
+00011100
+00011100
+00011100
+NAME lighter
+DLG 6
+
+ITM 5
+00000000
+01111100
+01001110
+01111110
+01000010
+01111110
+01010010
+01111110
+NAME paper
+DLG 7
+
+ITM 6
+00000000
+00000000
+00100000
+00010110
+10110100
+01111101
+01111110
+00111100
+NAME dustbunny
+DLG 8
+
 DLG 0
 """
-{bedroom_is_clean = coins + trousers}{
-  - {bedroom_is_clean} < 2 ?
+{bedroom_is_clean = coins + trousers + cigarettes + lighter + rubbish}{
+  - {bedroom_is_clean} < 8 ?
     {sequence
       - {clr2}Wayne. Clean this room.{clr2}{pg}Mum, I'm not a child. I'm 23.{pg}{clr2}I don't care how old you are. If you're living under my roof, you'll keep your room clean.{clr2}
       - {clr2}You're not leaving until this room is spotless{clr2}
@@ -128,16 +188,47 @@ DLG 3
 Ahh, my favourite stonewashed denim jeans.{pg}I supposed I'd better put them on if I'm going out.{trousers = 1}
 NAME trousers dialog
 
-DLG 4
-You walk through the doorway
-NAME exit narration 1
+DLG 5
+{cigarettes = 1}Cigarettes. I'm supposed to be quitting.
+NAME cigarettes dialog
+
+DLG 6
+{lighter = 1}My trusty cigarette lighter.
+NAME lighter dialog
+
+DLG 7
+"""
+{paper = paper + 1}{sequence
+  - Just some scrap paper. That can go.
+  - 
+}
+"""
+NAME paper dialog
+
+DLG 8
+"""
+{rubbish = rubbish + 1}{sequence
+  - A dust-bunny.
+  - 
+}
+"""
+NAME dustbunny dialog
 
 VAR coins
 0
 
-VAR trousers
+VAR bedroom_is_clean
 0
 
-VAR bedroom_is_clean
+VAR cigarettes
+0
+
+VAR lighter
+0
+
+VAR rubbish
+0
+
+VAR trousers
 0
 
