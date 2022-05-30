@@ -1,0 +1,143 @@
+Wayne Smith
+
+# BITSY VERSION 7.12
+
+! ROOM_FORMAT 1
+
+PAL 0
+NAME blueprint
+0,82,204
+128,159,255
+255,255,255
+
+ROOM 0
+a,a,a,a,a,a,a,a,a,a,a,0,a,a,a,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,0,0,0,0,0,0,0,0,0,0,0,0,0,0,a
+a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a
+NAME bedroom
+ITM 1 11,5
+ITM 2 4,10
+PAL 0
+
+TIL a
+11111111
+11111111
+11111111
+11111111
+11111111
+11111111
+11111111
+11111111
+NAME basic_wall
+WAL true
+
+SPR A
+00011000
+00011000
+00011000
+00111100
+01111110
+10111101
+00100100
+00100100
+POS 0 4,4
+
+SPR a
+00111000
+00111000
+00010000
+00111010
+01111100
+01111100
+00101000
+00101000
+>
+00111000
+00111000
+00010000
+00111100
+01111100
+01111100
+00101000
+00101000
+NAME mum
+DLG 0
+POS 0 11,0
+
+ITM 1
+00000000
+01100110
+11110110
+11110000
+01100100
+00001110
+00000100
+00000000
+NAME coins
+DLG 2
+
+ITM 2
+00000000
+00000000
+00111100
+00111100
+00111100
+00100100
+00100100
+00000000
+NAME trousers
+DLG 3
+
+DLG 0
+"""
+{bedroom_is_clean = coins + trousers}{
+  - {bedroom_is_clean} < 2 ?
+    {sequence
+      - {clr2}Wayne. Clean this room.{clr2}{pg}Mum, I'm not a child. I'm 23.{pg}{clr2}I don't care how old you are. If you're living under my roof, you'll keep your room clean.{clr2}
+      - {clr2}You're not leaving until this room is spotless{clr2}
+    }
+  - else ?
+    {clr2}Don't be late home son.{clr2}{exit "0" 1 1}
+}
+"""
+NAME mum dialog
+
+DLG 2
+"""
+Some loose change. I'll put this in my jeans pocket. {pg}{
+  - {trousers} == 0 ?
+    Or I would if was wearing them.
+}{coins = 1}
+"""
+NAME coins dialog
+
+DLG 3
+Ahh, my favourite stonewashed denim jeans.{pg}I supposed I'd better put them on if I'm going out.{trousers = 1}
+NAME trousers dialog
+
+DLG 4
+You walk through the doorway
+NAME exit narration 1
+
+VAR coins
+0
+
+VAR trousers
+0
+
+VAR bedroom_is_clean
+0
+
